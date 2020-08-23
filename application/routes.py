@@ -1,6 +1,7 @@
 from application import app, db
 from flask import render_template, request, json, Response
 from application.models import User, Course, Enrollment
+from application.forms import LoginForm, RegisterForm
 
 courseData = [{"courseID":"1111","title":"PHP 111","description":"Intro to PHP","credits":"3",
 "term":"Fall, Spring"}, {"courseID":"2222","title":"Java 1","description":"Intro to Java Programming",
@@ -24,9 +25,11 @@ def courses(term='Spring 2020'):
 def register():
     return render_template('register.html', register=True)
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
-    return render_template('login.html', login=True)
+    form = LoginForm()
+    title = "Login"
+    return render_template('login.html', form=form, title=title, login=True)
 
 @app.route('/enrollment', methods=["GET","POST"])
 def enrollment():
@@ -53,5 +56,3 @@ def user():
 
     users = User.objects.all()
     return render_template("user.html", users=users)
-
-    
