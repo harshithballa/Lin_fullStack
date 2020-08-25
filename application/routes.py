@@ -21,9 +21,10 @@ def index():
 def courses(term='Spring 2020'):
     return render_template('courses.html', courseData= courseData, courses=True, term=term)
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('register.html', register=True)
+    form = RegisterForm()
+    return render_template('register.html', form=form, register=True)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
